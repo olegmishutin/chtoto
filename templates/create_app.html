@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать заявку</title>
+    <link rel="stylesheet" href="{% static 'auth.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+<div class="auth">
+    <form class="auth__form" action="{% url 'applications:create-app' %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="auth__form__field">
+                {{ field.errors }}
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+        {% endfor %}
+        <input type="submit" value="Создать заявку">
+    </form>
+</div>
+</body>
+</html>

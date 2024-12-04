@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="{% static 'auth.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+<div class="auth">
+    <form class="auth__form" action="{% url 'users:log' %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="auth__form__field">
+                {{ field.errors }}
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+        {% endfor %}
+        <input type="submit" value="Авторизоваться">
+        <a href="{% url 'users:reg' %}">Зарегистрироваться</a>
+    </form>
+</div>
+</body>
+</html>

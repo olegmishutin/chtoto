@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои заявки</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+<a class="create_app_button" href="{% url 'applications:create-app' %}">Создать заявку</a>
+<ul class="base_list">
+    {% for app in applications %}
+        <li class="base_list__element">
+            <p>Мастер: {{ app.master }}</p>
+            <p>Статус: {{ app.get_status_display }}</p>
+            <p>Дата: {{ app.date }}</p>
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

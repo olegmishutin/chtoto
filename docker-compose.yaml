@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  pgdb:
+    image: postgres:17
+    restart: always
+    environment:
+      POSTGRES_DB: 'fedotov'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: '123456'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  backend:
+    build: .
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py createsuperuser &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - '8000:8000'
+    depends_on:
+      - pgdb
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:

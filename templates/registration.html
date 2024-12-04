@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="{% static 'auth.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+<div class="auth">
+    <form class="auth__form" action="{% url 'users:reg' %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="auth__form__field">
+                {{ field.errors }}
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+        {% endfor %}
+        <input type="submit" value="Зарегистрироваться">
+        <a href="{% url 'users:log' %}">Войти</a>
+    </form>
+</div>
+</body>
+</html>
